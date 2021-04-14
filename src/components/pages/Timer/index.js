@@ -1,3 +1,3 @@
-import Sign from './component'
+import Timer from './component';
 
-export default Sign
+export default Timer;

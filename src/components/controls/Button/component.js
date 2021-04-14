@@ -1,9 +1,8 @@
 import React from 'react';
-import type {Node} from 'react';
 
 import {ButtonContainer, ButtonText} from './styles';
 
-const CustomButton = ({onPress, bgColor, title}): Node => (
+const CustomButton = ({onPress, bgColor, title}) => (
   <ButtonContainer onPress={onPress} bgColor={bgColor}>
     <ButtonText>{title}</ButtonText>
   </ButtonContainer>
