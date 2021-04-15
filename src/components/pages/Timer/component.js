@@ -1,27 +1,22 @@
 import React, {useState, useEffect} from 'react';
-import {Dimensions} from 'react-native';
+import {SafeAreaView, ScrollView} from 'react-native';
+import moment from 'moment';
 
-import Button from '../../controls/Button';
+import Button from '@/components/controls/Button';
+import LapElement from '@/components/blocks/LapElement';
+import CircularProgress from '@/components/blocks/CircularProgress';
 
 import {
   PageContainer,
   ButtonsContainer,
   TimerContainer,
   ListContainer,
-  ListElement,
-  Element,
 } from './styles';
 
 const Timer = () => {
-  const ScreenHeight = Dimensions.get('window').height;
+  const [timerLap, setTimerLap] = useState([]);
   const [time, setTime] = useState(0);
   const [isActive, setIsActive] = useState(false);
-
-  function formatSeconds(seconds) {
-    var date = new Date(1970, 0, 1);
-    date.setSeconds(seconds);
-    return date.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1');
-  }
 
   const onStartHandler = () => {
     setIsActive(!isActive);
@@ -32,15 +27,23 @@ const Timer = () => {
     setIsActive(!isActive);
   };
 
-  const onLapHandler = () => {};
+  const onLapHandler = () => {
+    if (isActive) {
+      setTimerLap(previousTimerLap => [...previousTimerLap, time]);
+    }
+  };
+
+  const onClearHandler = () => {
+    setTimerLap([]);
+  };
 
   useEffect(() => {
     let interval = null;
 
     if (isActive) {
       interval = setInterval(() => {
-        setTime(prevtime => prevtime + 1);
-      }, 1000);
+        setTime(prevtime => prevtime + 100);
+      }, 100);
     } else {
       clearInterval(interval);
     }
@@ -49,24 +52,41 @@ const Timer = () => {
   }, [isActive]);
 
   return (
-    <PageContainer
-      colors={['#97ABFF', '#3b5998', '#123597']}
-      ScreenHeight={ScreenHeight}>
-      <TimerContainer>{formatSeconds(time)}</TimerContainer>
-      <ButtonsContainer>
-        {!isActive ? (
-          <Button title="Start" bgColor="#2196f3" onPress={onStartHandler} />
-        ) : (
-          <Button title="Stop" bgColor="red" onPress={onStopHandler} />
-        )}
-        <Button title="Lap" bgColor="#2196f3" onPress={onLapHandler} />
-      </ButtonsContainer>
-      <ListContainer>
-        <ListElement>
-          <Element>Test</Element>
-          <Element>00:00:00</Element>
-        </ListElement>
-      </ListContainer>
+    <PageContainer colors={['#97ABFF', '#3b5998', '#123597']}>
+      <ScrollView>
+        <SafeAreaView>
+          <TimerContainer>
+            <CircularProgress value={moment(time).format('mm')} text="min" />
+            <CircularProgress value={moment(time).format('ss')} text="sec" />
+            <CircularProgress
+              value={moment(time).milliseconds() / 10}
+              text="msec"
+            />
+          </TimerContainer>
+          <ButtonsContainer>
+            {!isActive ? (
+              <Button
+                title="Start"
+                bgColor="#2196f3"
+                onPress={onStartHandler}
+              />
+            ) : (
+              <Button title="Stop" bgColor="red" onPress={onStopHandler} />
+            )}
+            <Button title="Lap" bgColor="#2196f3" onPress={onLapHandler} />
+            <Button title="Clear" bgColor="#2196f3" onPress={onClearHandler} />
+          </ButtonsContainer>
+          <ListContainer>
+            {timerLap.map((element, index) => (
+              <LapElement
+                element={element}
+                index={index}
+                key={index + element}
+              />
+            ))}
+          </ListContainer>
+        </SafeAreaView>
+      </ScrollView>
     </PageContainer>
   );
 };

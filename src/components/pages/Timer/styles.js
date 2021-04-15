@@ -3,8 +3,8 @@ import LinearGradient from 'react-native-linear-gradient';
 
 export const PageContainer = styled(LinearGradient)`
   display: flex;
+  flex: 1;
   flex-direction: column;
-  height: ${props => props.ScreenHeight};
 `;
 
 export const ButtonsContainer = styled.View`
@@ -18,13 +18,11 @@ export const ButtonsContainer = styled.View`
 `;
 
 export const TimerContainer = styled.Text`
-  width: 100%;
-  padding: 50px;
-  font-size: 47px;
-  font-weight: bold;
-  background: #fd6e6a;
-  color: #ffffff;
   text-align: center;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background: #fd6e6a;
 `;
 
 export const ListContainer = styled.View`
@@ -33,17 +31,4 @@ export const ListContainer = styled.View`
   padding: 50px;
   color: #ffffff;
   width: 100%;
-`;
-
-export const ListElement = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  color: #ffffff;
-  font-size: 32px;
-`;
-
-export const Element = styled.Text`
-  font-size: 23px;
-  color: #ffffff;
 `;
