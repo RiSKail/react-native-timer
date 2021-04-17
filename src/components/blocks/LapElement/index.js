@@ -1,3 +1,3 @@
-import LapElement from './component';
+import LapElement from './component'
 
-export default LapElement;
+export default LapElement

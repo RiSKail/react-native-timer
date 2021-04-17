@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-import Timer from './components/pages/Timer';
+import Timer from './components/pages/Timer'
 
 const App = () => {
-  return <Timer />;
-};
+  return <Timer />
+}
 
-export default App;
+export default App

@@ -1,3 +1,3 @@
-import CircularProgress from './component';
+import CircularProgress from './component'
 
-export default CircularProgress;
+export default CircularProgress

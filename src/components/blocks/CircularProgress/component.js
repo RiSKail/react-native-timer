@@ -1,20 +1,31 @@
-import React from 'react';
-import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import React from 'react'
+import { AnimatedCircularProgress } from 'react-native-circular-progress'
+import pt from 'prop-types'
 
-import {TimeText} from './styles';
+import { CIRCULAR_TINT_COLOR, CIRCULAR_BG_COLOR } from '@/themes'
+import { TimeText } from './styles'
 
-const CircularProgress = ({value, text}) => {
+const CircularProgress = ({ value, text }) => {
   return (
     <AnimatedCircularProgress
       padding={10}
-      size={100}
+      size={110}
       width={4}
       fill={Number(value) * 1.66}
-      tintColor="#2196f3"
-      backgroundColor="#79bbef">
+      tintColor={CIRCULAR_TINT_COLOR}
+      backgroundColor={CIRCULAR_BG_COLOR}>
       {_ => <TimeText>{`${Math.trunc(value)} ${text}`}</TimeText>}
     </AnimatedCircularProgress>
-  );
-};
+  )
+}
 
-export default CircularProgress;
+CircularProgress.propTypes = {
+  value: pt.any.isRequired,
+  text: pt.string,
+}
+
+CircularProgress.defaultProps = {
+  text: '',
+}
+
+export default CircularProgress
